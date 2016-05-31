@@ -1,36 +1,65 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width">
-    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css" type="text/css" media="all">
-    <link rel="stylesheet" href="css/main.css" type="text/css" media="all">
-    <title>Angular</title>
+    <title>Angular ToDo</title>
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/main.css">
   </head>
-  <body ng-app='TodoApp'>
-    <section ng-controller='TodoCtrl'>
-    <h1>{{title}}</h1>
-    <div>
-      <input type="text" ng-model='potato'>
-      <!--<label for='filter2'>filter2</label>-->
-      <!--<input type='text' ng-model+'filter2'> -->
-      <input type='checkbox' ng-model='variableName'>
-      <div>{{potato}}  </div>
-      <div>{{variableName}}</div>
-    </div>
-    <div>
-    <input type="text" ng-model="newTodo">
-    <button type='submit' class"btn-default" ng-click='addTodo()'>New ToDo</button>
-  </div>
-  <div>
-    <ul ng-repeat='eachItem in tasks | filter: potato | filter: filter2'>
-      <li>{{eachItem.name}} {{eachItem.type}} <button ng-click='removeTodo(eachItem)'>Delete</button></li>
-    </ul>
-  </div>
+  <body ng-app="TodoApp">
+    {{title}}
+    <section ng-controller="TodoCtrl">
 
-  </section>
-  <script src="bower_components/angular/angular.min.js"></script>
-  <script src="app/app.js"></script>
-  <script src="app/controllers/todo.js"></script>
-</body>
+      <h1>{{title}}</h1>
+
+      <div>
+        <label for="potato">Potato</label>
+        <input id="potato" type="text" ng-model="potato">
+        <div>{{potato}}</div>
+
+        <!-- <label for="filter2">Filter 2</label>
+        <input id="filter2" type="text" ng-model="filter2">
+
+        <input type="checkbox" ng-model="variableName">
+        <div>{{variableName}}</div> -->
+
+        <form ng-submit="addTodo()">
+          <input type="text" ng-model="newTodo">
+          <div class="input-group">
+            <input name="taskType" type="radio" value="home" ng-model="taskType">Home
+            <input name="taskType" type="radio" value="work" ng-model="taskType">Work
+          </div>
+          {{homeTask}}
+          <button type="submit" class="btn-default">New Todo</button>
+        </form>
+
+
+
+        <div>
+          <label for="type">Task Type</label>
+          <select id="type"
+            ng-model="selectedTodo"
+            ng-options="item.name group by item.type for item in tasks">
+          </select>
+        </div>
+
+        <div>
+          <h2>You have selected {{selectedTodo.name}}</h2>
+        </div>
+
+
+
+        <div>
+          <ul ng-repeat="var_name in tasks | filter: potato">
+            <li>{{var_name.name}} <button ng-click="removeTodo(var_name)">Delete</button></li>
+          </ul>
+        </div>
+      </div>
+
+    </section>
+    <!-- Angular -->
+    <script src="bower_components/angular/angular.min.js"></script>
+    <!-- our scripts -->
+    <script src="app/app.js"></script>
+    <script src="app/controllers/todo.js"></script>
+  </body>
 </html>
